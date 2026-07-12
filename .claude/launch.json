@@ -1,0 +1,18 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "vinext-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev:vinext"],
+      "port": 3000,
+      "autoPort": true
+    },
+    {
+      "name": "vinext-start",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "start:vinext"],
+      "port": 3000
+    }
+  ]
+}
