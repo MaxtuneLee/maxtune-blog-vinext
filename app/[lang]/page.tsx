@@ -5,9 +5,12 @@ import Socials from "@/components/Socials";
 import Hr from "@/components/Hr";
 import LinkButton from "@/components/LinkButton";
 import { SOCIALS } from "@/lib/config";
+import { getDictionary, localizePath, type Locale } from "@/lib/i18n";
 
-export default async function Home() {
-  const posts = await getAllPosts();
+export default async function Home({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
+  const dict = getDictionary(lang);
+  const posts = await getAllPosts(lang);
 
   const sortedPosts = getSortedPosts(posts.filter(post => !post.data.draft));
   const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
@@ -40,14 +43,14 @@ export default async function Home() {
           <span className="sr-only">RSS Feed</span>
         </a>
         <p className="my-2">
-          学智能科学与技术的前端开发者，研究机器视觉与 web 应用开发。
+          {dict.home.bio1}
           <br />
-          喜欢 📷 摄影、☕ 咖啡、🐱 福瑞
+          {dict.home.bio2}
         </p>
         {socialCount > 0 && (
           <div className="social-wrapper mt-4 flex flex-col sm:flex-row sm:items-center">
             <div className="social-links mb-1 mr-2 whitespace-nowrap sm:mb-0">
-              与我联系
+              {dict.home.connect}
             </div>
             <Socials />
           </div>
@@ -58,10 +61,16 @@ export default async function Home() {
 
       {featuredPosts.length > 0 && (
         <section id="featured" className="pb-6 pt-12">
-          <h2 className="text-2xl font-semibold tracking-wide">特辑</h2>
+          <h2 className="text-2xl font-semibold tracking-wide">{dict.home.featured}</h2>
           <ul>
             {featuredPosts.map(({ id, data }) => (
-              <Card key={id} href={`/posts/${id}`} frontmatter={data} secHeading={false} />
+              <Card
+                key={id}
+                href={localizePath(lang, `/posts/${id}`)}
+                frontmatter={data}
+                secHeading={false}
+                lang={lang}
+              />
             ))}
           </ul>
         </section>
@@ -71,18 +80,24 @@ export default async function Home() {
 
       {recentPosts.length > 0 && (
         <section id="recent-posts" className="pb-6 pt-12">
-          <h2 className="text-2xl font-semibold tracking-wide">最新文章</h2>
+          <h2 className="text-2xl font-semibold tracking-wide">{dict.home.recent}</h2>
           <ul>
             {recentPosts.slice(0, 4).map(({ id, data }) => (
-              <Card key={id} href={`/posts/${id}`} frontmatter={data} secHeading={false} />
+              <Card
+                key={id}
+                href={localizePath(lang, `/posts/${id}`)}
+                frontmatter={data}
+                secHeading={false}
+                lang={lang}
+              />
             ))}
           </ul>
         </section>
       )}
 
       <div className="all-posts-btn-wrapper my-8 text-center">
-        <LinkButton href="/posts">
-          浏览全部文章
+        <LinkButton href={localizePath(lang, "/posts")}>
+          {dict.home.allPosts}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z" />
           </svg>

@@ -1,6 +1,7 @@
 import type { Post } from "@/lib/types";
 import Card from "./Card";
 import Pagination from "./Pagination";
+import { defaultLocale, localizePath, type Locale } from "@/lib/i18n";
 
 type Props = {
   paginatedPosts: Post[];
@@ -8,6 +9,7 @@ type Props = {
   totalPages: number;
   prevUrl: string;
   nextUrl: string;
+  lang?: Locale;
 };
 
 export default function PostList({
@@ -16,6 +18,7 @@ export default function PostList({
   totalPages,
   prevUrl,
   nextUrl,
+  lang = defaultLocale,
 }: Props) {
   return (
     <>
@@ -23,7 +26,12 @@ export default function PostList({
         {paginatedPosts
           .filter(post => !post.data.draft)
           .map(post => (
-            <Card key={post.id} href={`/posts/${post.id}`} frontmatter={post.data} />
+            <Card
+              key={post.id}
+              href={localizePath(lang, `/posts/${post.id}`)}
+              frontmatter={post.data}
+              lang={lang}
+            />
           ))}
       </ul>
       <Pagination
@@ -31,6 +39,7 @@ export default function PostList({
         totalPages={totalPages}
         prevUrl={prevUrl}
         nextUrl={nextUrl}
+        lang={lang}
       />
     </>
   );

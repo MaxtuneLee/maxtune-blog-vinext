@@ -12,11 +12,6 @@ export const SITE: Site = {
   description: "学智能科学与技术的前端开发者，研究机器视觉与 web 应用开发。",
 };
 
-export const LOCALE = {
-  lang: "zh",
-  langTag: ["zh-CN"],
-} as const;
-
 export const LOGO_IMAGE = {
   enable: false,
   svg: true,

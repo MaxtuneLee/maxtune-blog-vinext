@@ -1,14 +1,17 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { navigateWithViewTransition } from "./ViewTransitionRouter";
+import { getDictionary, localeFromPathname, localizePath } from "@/lib/i18n";
 
 export default function BackButton() {
   const router = useRouter();
+  const lang = localeFromPathname(usePathname());
+  const dict = getDictionary(lang);
 
   const handleClick = () => {
     if (history.length === 1) {
-      window.location.href = "/";
+      window.location.href = localizePath(lang, "/");
     } else {
       navigateWithViewTransition(() => router.back());
     }
@@ -22,7 +25,7 @@ export default function BackButton() {
       <svg xmlns="http://www.w3.org/2000/svg">
         <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
       </svg>
-      <span>返回</span>
+      <span>{dict.backButton.label}</span>
     </button>
   );
 }

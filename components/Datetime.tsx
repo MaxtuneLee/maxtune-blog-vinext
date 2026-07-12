@@ -1,28 +1,31 @@
-import { LOCALE } from "@/lib/config";
+import { getDictionary, langTags, defaultLocale, type Locale } from "@/lib/i18n";
 
 type Props = {
   pubDatetime: string | Date;
   modDatetime?: string | Date | null;
   size?: "sm" | "lg";
   className?: string;
+  lang?: Locale;
 };
 
 function FormattedDatetime({
   pubDatetime,
   modDatetime,
+  lang,
 }: {
   pubDatetime: string | Date;
   modDatetime?: string | Date | null;
+  lang: Locale;
 }) {
   const myDatetime = new Date(modDatetime || pubDatetime);
 
-  const date = myDatetime.toLocaleDateString(LOCALE.langTag, {
+  const date = myDatetime.toLocaleDateString(langTags[lang], {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
 
-  const time = myDatetime.toLocaleTimeString(LOCALE.langTag, {
+  const time = myDatetime.toLocaleTimeString(langTags[lang], {
     hour: "2-digit",
     minute: "2-digit",
   });
@@ -42,7 +45,10 @@ export default function Datetime({
   modDatetime,
   size = "sm",
   className,
+  lang = defaultLocale,
 }: Props) {
+  const dict = getDictionary(lang);
+
   return (
     <div className={`flex items-center space-x-2 opacity-80 ${className ?? ""}`}>
       <svg
@@ -54,12 +60,12 @@ export default function Datetime({
         <path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zM19 8l.001 12H5V8h14z" />
       </svg>
       {modDatetime ? (
-        <span className={size === "sm" ? "text-sm" : "text-base"}>更新于：</span>
+        <span className={size === "sm" ? "text-sm" : "text-base"}>{dict.datetime.updatedAt}</span>
       ) : (
-        <span className="sr-only">发布于：</span>
+        <span className="sr-only">{dict.datetime.publishedAtSr}</span>
       )}
       <span className={size === "sm" ? "text-sm" : "text-base"}>
-        <FormattedDatetime pubDatetime={pubDatetime} modDatetime={modDatetime} />
+        <FormattedDatetime pubDatetime={pubDatetime} modDatetime={modDatetime} lang={lang} />
       </span>
     </div>
   );

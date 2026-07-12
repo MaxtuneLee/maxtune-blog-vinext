@@ -1,6 +1,13 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import LinkButton from "@/components/LinkButton";
+import { getDictionary, localeFromPathname, localizePath } from "@/lib/i18n";
 
 export default function NotFound() {
+  const lang = localeFromPathname(usePathname());
+  const dict = getDictionary(lang);
+
   return (
     <main
       id="main-content"
@@ -16,10 +23,10 @@ export default function NotFound() {
         <span aria-hidden="true">{"¯\\_(ツ)_/¯"}</span>
         <p className="mt-4 text-2xl sm:text-3xl">Page Not Found</p>
         <LinkButton
-          href="/"
+          href={localizePath(lang, "/")}
           className="my-6 text-lg underline decoration-dashed underline-offset-8"
         >
-          回到主页
+          {dict.notFound.backHome}
         </LinkButton>
       </div>
     </main>

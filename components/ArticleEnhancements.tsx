@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { getDictionary, localeFromPathname } from "@/lib/i18n";
 
 function addHeadingLinks() {
   const headings = document.querySelectorAll<HTMLElement>(
@@ -17,8 +19,8 @@ function addHeadingLinks() {
   });
 }
 
-function attachCopyButtons() {
-  const copyButtonLabel = "复制";
+function attachCopyButtons(dict: ReturnType<typeof getDictionary>) {
+  const copyButtonLabel = dict.article.copy;
   const codeBlocks = document.querySelectorAll<HTMLPreElement>("#article pre");
 
   codeBlocks.forEach(codeBlock => {
@@ -40,7 +42,7 @@ function attachCopyButtons() {
       const text = code?.innerText ?? "";
       await navigator.clipboard.writeText(text);
 
-      copyButton.innerText = "已复制";
+      copyButton.innerText = dict.article.copied;
       setTimeout(() => {
         copyButton.innerText = copyButtonLabel;
       }, 700);
@@ -49,9 +51,12 @@ function attachCopyButtons() {
 }
 
 export default function ArticleEnhancements() {
+  const dict = getDictionary(localeFromPathname(usePathname()));
+
   useEffect(() => {
     addHeadingLinks();
-    attachCopyButtons();
+    attachCopyButtons(dict);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return null;

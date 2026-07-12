@@ -5,6 +5,8 @@ import { renderMarkdown } from "@/lib/posts";
 
 export const metadata = { title: "About Me" };
 
+// About page content (content/about.md) stays Chinese-only for now, per the
+// UI-chrome-first i18n scope — see the plan discussion.
 export default async function AboutPage() {
   const raw = fs.readFileSync(
     path.join(process.cwd(), "content", "about.md"),

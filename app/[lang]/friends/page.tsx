@@ -1,6 +1,7 @@
 import Main from "@/components/Main";
 import friendsData from "@/content/friends.json";
 import Image from "next/image";
+import { getDictionary, type Locale } from "@/lib/i18n";
 
 type Friend = {
   name: string;
@@ -11,11 +12,17 @@ type Friend = {
 
 const friends = friendsData as Friend[];
 
-export const metadata = { title: "朋友们" };
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
+  return { title: getDictionary(lang).friends.metaTitle };
+}
 
-export default function FriendsPage() {
+export default async function FriendsPage({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
+  const dict = getDictionary(lang);
+
   return (
-    <Main title="朋友们">
+    <Main title={dict.friends.pageTitle}>
       <ul className="grid-col-1 grid gap-6 pb-4 md:grid-cols-2 mt-4">
         {friends.map(friend => (
           <li
@@ -97,9 +104,9 @@ export default function FriendsPage() {
             href="mailto:max@xox.im"
             className="inline-block text-lg font-bold text-skin-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
           >
-            交个朋友？
+            {dict.friends.addFriendCta}
           </a>
-          <p className="text-base font-[300] opacity-80">点击添加你的友情链接</p>
+          <p className="text-base font-[300] opacity-80">{dict.friends.addFriendHint}</p>
         </li>
       </ul>
     </Main>

@@ -1,10 +1,12 @@
 import LinkButton from "./LinkButton";
+import { getDictionary, defaultLocale, type Locale } from "@/lib/i18n";
 
 type Props = {
   currentPage: number;
   totalPages: number;
   prevUrl: string;
   nextUrl: string;
+  lang?: Locale;
 };
 
 export default function Pagination({
@@ -12,8 +14,10 @@ export default function Pagination({
   totalPages,
   prevUrl,
   nextUrl,
+  lang = defaultLocale,
 }: Props) {
   if (totalPages <= 1) return null;
+  const dict = getDictionary(lang);
 
   const isPrevDisabled = currentPage <= 1;
   const isNextDisabled = currentPage >= totalPages;
@@ -36,7 +40,7 @@ export default function Pagination({
         <svg className={isPrevDisabled ? "disabled-svg" : ""}>
           <path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z" />
         </svg>
-        上一页
+        {dict.pagination.prev}
       </LinkButton>
 
       {currentPage} / {totalPages}
@@ -51,7 +55,7 @@ export default function Pagination({
         }`}
         ariaLabel="Next"
       >
-        下一页
+        {dict.pagination.next}
         <svg className={isNextDisabled ? "disabled-svg" : ""}>
           <path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z" />
         </svg>

@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+import { localeFromPathname } from "@/lib/i18n";
 
 export default function Comment() {
   const ref = useRef<HTMLDivElement>(null);
+  const lang = localeFromPathname(usePathname());
 
   useEffect(() => {
     const theme = document.documentElement.getAttribute("data-theme");
@@ -22,7 +25,7 @@ export default function Comment() {
       "data-emit-metadata": "0",
       "data-input-position": "top",
       "data-theme": giscusTheme,
-      "data-lang": "zh-CN",
+      "data-lang": lang === "en" ? "en" : "zh-CN",
       "data-loading": "lazy",
       crossorigin: "anonymous",
       async: "",
@@ -33,6 +36,7 @@ export default function Comment() {
     );
 
     ref.current?.appendChild(script);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div ref={ref} />;

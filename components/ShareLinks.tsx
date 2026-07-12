@@ -1,5 +1,6 @@
 import LinkButton from "./LinkButton";
 import socialIcons from "@/lib/social-icons";
+import { getDictionary, defaultLocale, type Locale } from "@/lib/i18n";
 
 const shareLinks = [
   {
@@ -34,10 +35,11 @@ const shareLinks = [
   },
 ] as const;
 
-export default function ShareLinks({ url }: { url: string }) {
+export default function ShareLinks({ url, lang = defaultLocale }: { url: string; lang?: Locale }) {
+  const dict = getDictionary(lang);
   return (
     <div className="social-icons flex flex-col flex-wrap items-center justify-center gap-1 sm:items-start">
-      <span className="italic">分享这篇文章到 ↓</span>
+      <span className="italic">{dict.shareLinks.prompt}</span>
       <div className="text-center">
         {shareLinks.map(social => (
           <LinkButton

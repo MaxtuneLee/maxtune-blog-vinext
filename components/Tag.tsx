@@ -1,16 +1,20 @@
+import { defaultLocale, localizePath, type Locale } from "@/lib/i18n";
+
 export default function Tag({
   tag,
   size = "sm",
+  lang = defaultLocale,
 }: {
   tag: string;
   size?: "sm" | "lg";
+  lang?: Locale;
 }) {
   return (
     <li
       className={`inline-block ${size === "sm" ? "my-1 underline-offset-4" : "my-3 mx-1 underline-offset-8"}`}
     >
       <a
-        href={`/tags/${tag}`}
+        href={localizePath(lang, `/tags/${tag}`)}
         className={`relative underline decoration-dashed hover:-top-0.5 hover:text-skin-accent focus-visible:p-1 pr-2 group ${size === "sm" ? "text-sm" : "text-lg"}`}
       >
         <svg

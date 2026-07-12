@@ -1,6 +1,11 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+import { getDictionary, localeFromPathname } from "@/lib/i18n";
+
 export default function BackToTopButton() {
+  const dict = getDictionary(localeFromPathname(usePathname()));
+
   const handleClick = () => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
@@ -14,7 +19,7 @@ export default function BackToTopButton() {
       <svg xmlns="http://www.w3.org/2000/svg" className="rotate-90">
         <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
       </svg>
-      <span>回到顶部</span>
+      <span>{dict.backToTop.label}</span>
     </button>
   );
 }

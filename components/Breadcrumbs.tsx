@@ -1,12 +1,15 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { getDictionary, localeFromPathname, localizePath, stripLocaleFromPathname } from "@/lib/i18n";
 
 export default function Breadcrumbs() {
   const pathname = usePathname();
+  const lang = localeFromPathname(pathname);
+  const dict = getDictionary(lang);
 
-  // Remove current url path and remove trailing slash if exists
-  const currentUrlPath = pathname.replace(/\/+$/, "");
+  // Remove the locale prefix (if any) and trailing slash
+  const currentUrlPath = stripLocaleFromPathname(pathname).replace(/\/+$/, "");
 
   // Get url array from path
   // eg: /tags/tailwindcss => ['tags', 'tailwindcss']
@@ -15,11 +18,7 @@ export default function Breadcrumbs() {
   // if breadcrumb is Home > Posts > 1 <etc>
   // replace Posts with Posts (page number)
   if (breadcrumbList[0] === "posts") {
-    breadcrumbList.splice(
-      0,
-      2,
-      `全部文章 (第 ${breadcrumbList[1] || "1"} 页)`
-    );
+    breadcrumbList.splice(0, 2, dict.breadcrumbs.allPosts(breadcrumbList[1] || "1"));
   }
 
   // if breadcrumb is Home > Tags > [tag] > [page] <etc>
@@ -28,9 +27,7 @@ export default function Breadcrumbs() {
     breadcrumbList.splice(
       1,
       3,
-      `${breadcrumbList[1]} ${
-        Number(breadcrumbList[2]) === 1 ? "" : "(page " + breadcrumbList[2] + ")"
-      }`
+      `${breadcrumbList[1]} ${dict.breadcrumbs.tagPage(Number(breadcrumbList[2]))}`
     );
   }
 
@@ -41,8 +38,8 @@ export default function Breadcrumbs() {
     >
       <ul>
         <li>
-          <a href="/" className="capitalize opacity-70 hover:opacity-100">
-            主页
+          <a href={localizePath(lang, "/")} className="capitalize opacity-70 hover:opacity-100">
+            {dict.breadcrumbs.home}
           </a>
           <span aria-hidden="true">&raquo;</span>
         </li>
@@ -59,7 +56,7 @@ export default function Breadcrumbs() {
           ) : (
             <li key={breadcrumb}>
               <a
-                href={`/${breadcrumb}`}
+                href={localizePath(lang, `/${breadcrumb}`)}
                 className="capitalize opacity-70 hover:opacity-100"
               >
                 {breadcrumb}

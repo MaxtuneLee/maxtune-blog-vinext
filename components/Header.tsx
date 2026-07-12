@@ -4,21 +4,27 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Hr from "./Hr";
 import LinkButton from "./LinkButton";
+import LocaleSwitcher from "./LocaleSwitcher";
 import { SITE, LOGO_IMAGE } from "@/lib/config";
+import { getDictionary, localeFromPathname, localizePath, stripLocaleFromPathname } from "@/lib/i18n";
 
 export default function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const activeNav = pathname.startsWith("/posts")
+  const lang = localeFromPathname(pathname);
+  const dict = getDictionary(lang);
+  const localPath = stripLocaleFromPathname(pathname);
+
+  const activeNav = localPath.startsWith("/posts")
     ? "posts"
-    : pathname.startsWith("/tags")
+    : localPath.startsWith("/tags")
       ? "tags"
-      : pathname.startsWith("/about")
+      : localPath.startsWith("/about")
         ? "about"
-        : pathname.startsWith("/search")
+        : localPath.startsWith("/search")
           ? "search"
-          : pathname.startsWith("/friends")
+          : localPath.startsWith("/friends")
             ? "friends"
             : undefined;
 
@@ -37,7 +43,7 @@ export default function Header() {
         >
           <div className="flex w-full justify-between">
             <a
-              href="/"
+              href={localizePath(lang, "/")}
               className="logo whitespace-nowrap py-1 text-xl font-semibold sm:static sm:text-2xl"
             >
               {LOGO_IMAGE.enable ? (
@@ -119,26 +125,26 @@ export default function Header() {
             >
               <li className="col-span-2 flex items-center justify-center">
                 <a
-                  href="/posts"
+                  href={localizePath(lang, "/posts")}
                   className={`w-full px-4 py-3 text-center font-medium hover:text-skin-accent sm:my-0 sm:px-2 sm:py-1${activeNav === "posts" ? " underline decoration-wavy decoration-2 underline-offset-4" : ""}`}
                 >
-                  文章
+                  {dict.nav.posts}
                 </a>
               </li>
               <li className="col-span-2 flex items-center justify-center">
                 <a
-                  href="/about"
+                  href={localizePath(lang, "/about")}
                   className={`w-full px-4 py-3 text-center font-medium hover:text-skin-accent sm:my-0 sm:px-2 sm:py-1${activeNav === "about" ? " underline decoration-wavy decoration-2 underline-offset-4" : ""}`}
                 >
-                  关于
+                  {dict.nav.about}
                 </a>
               </li>
               <li className="col-span-2 flex items-center justify-center">
                 <a
-                  href="/friends"
+                  href={localizePath(lang, "/friends")}
                   className={`w-full px-4 py-3 text-center font-medium hover:text-skin-accent sm:my-0 sm:px-2 sm:py-1${activeNav === "friends" ? " underline decoration-wavy decoration-2 underline-offset-4" : ""}`}
                 >
-                  友链
+                  {dict.nav.friends}
                 </a>
               </li>
               <li className="col-span-2 flex items-center justify-center">
@@ -146,12 +152,12 @@ export default function Header() {
                   href="https://gallery.mxte.cc"
                   className="w-full px-4 py-3 text-center font-medium hover:text-skin-accent sm:my-0 sm:px-2 sm:py-1"
                 >
-                  画廊
+                  {dict.nav.gallery}
                 </a>
               </li>
               <li className="col-span-1 flex items-center justify-center">
                 <LinkButton
-                  href="/search"
+                  href={localizePath(lang, "/search")}
                   className={`focus-outline flex p-3 sm:p-1${activeNav === "search" ? " underline decoration-wavy decoration-2 underline-offset-4" : ""}`}
                   ariaLabel="search"
                   title="Search"
@@ -191,6 +197,9 @@ export default function Header() {
                   </button>
                 </li>
               )}
+              <li className="col-span-2 flex items-center justify-center">
+                <LocaleSwitcher />
+              </li>
             </ul>
           </nav>
         </div>

@@ -5,22 +5,25 @@ import getPostsByTag from "@/lib/utils/getPostsByTag";
 import getPagination from "@/lib/utils/getPagination";
 import Main from "@/components/Main";
 import PostList from "@/components/PostList";
+import { getDictionary, localizePath, type Locale } from "@/lib/i18n";
 
-type Params = Promise<{ tag: string }>;
+type Params = Promise<{ lang: Locale; tag: string; page: string }>;
 
 export async function generateMetadata({ params }: { params: Params }) {
-  const { tag } = await params;
-  const posts = await getAllPosts();
+  const { lang, tag } = await params;
+  const dict = getDictionary(lang);
+  const posts = await getAllPosts(lang);
   const published = posts.filter(p => !p.data.draft);
   const tags = getUniqueTags(published);
   const match = tags.find(t => t.tag === tag);
 
-  return { title: match ? `标签: ${match.tagName}` : "标签" };
+  return { title: match ? dict.tags.tagMetaTitle(match.tagName) : dict.tags.metaTitle };
 }
 
 export default async function TagPage({ params }: { params: Params }) {
-  const { tag } = await params;
-  const posts = await getAllPosts();
+  const { lang, tag, page } = await params;
+  const dict = getDictionary(lang);
+  const posts = await getAllPosts(lang);
   const published = posts.filter(p => !p.data.draft);
   const tags = getUniqueTags(published);
   const match = tags.find(t => t.tag === tag);
@@ -28,19 +31,25 @@ export default async function TagPage({ params }: { params: Params }) {
   if (!match) notFound();
 
   const postsByTag = getPostsByTag(published, tag);
-  const pagination = getPagination({ posts: postsByTag, page: 1, isIndex: true });
+  const pagination = getPagination({ posts: postsByTag, page });
+
+  if (pagination.currentPage === 0) notFound();
 
   return (
     <Main
-      title={`标签: ${match.tagName}`}
-      description={`所有带有 "${match.tagName}" 标签的文章`}
+      title={dict.tags.tagMetaTitle(match.tagName)}
+      description={dict.tags.tagDescription(match.tagName)}
     >
       <PostList
         paginatedPosts={pagination.paginatedPosts}
         currentPage={pagination.currentPage}
         totalPages={pagination.totalPages}
-        prevUrl={`/tags/${tag}`}
-        nextUrl={`/tags/${tag}/2`}
+        prevUrl={localizePath(
+          lang,
+          `/tags/${tag}${pagination.currentPage - 1 !== 1 ? `/${pagination.currentPage - 1}` : ""}`
+        )}
+        nextUrl={localizePath(lang, `/tags/${tag}/${pagination.currentPage + 1}`)}
+        lang={lang}
       />
     </Main>
   );

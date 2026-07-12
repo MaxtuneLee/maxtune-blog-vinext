@@ -7,13 +7,16 @@ import BackButton from "./BackButton";
 import BackToTopButton from "./BackToTopButton";
 import ArticleEnhancements from "./ArticleEnhancements";
 import { slugifyStr, toViewTransitionName } from "@/lib/utils/slugify";
+import { defaultLocale, type Locale } from "@/lib/i18n";
 
 export default function PostDetail({
   post,
   url,
+  lang = defaultLocale,
 }: {
   post: Post;
   url: string;
+  lang?: Locale;
 }) {
   const { title, pubDatetime, modDatetime, tags } = post.data;
 
@@ -34,6 +37,7 @@ export default function PostDetail({
           modDatetime={modDatetime}
           size="lg"
           className="my-2"
+          lang={lang}
         />
         <article
           id="article"
@@ -44,7 +48,7 @@ export default function PostDetail({
         <ArticleEnhancements />
         <ul className="my-8">
           {tags.map(tag => (
-            <Tag key={tag} tag={slugifyStr(tag)} />
+            <Tag key={tag} tag={slugifyStr(tag)} lang={lang} />
           ))}
         </ul>
         <section id="post-comment" className="my-8">
@@ -52,7 +56,7 @@ export default function PostDetail({
         </section>
         <div className="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4">
           <BackToTopButton />
-          <ShareLinks url={url} />
+          <ShareLinks url={url} lang={lang} />
         </div>
       </main>
     </>

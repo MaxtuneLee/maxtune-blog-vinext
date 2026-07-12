@@ -2,6 +2,7 @@ import { ImageResponse } from "next/og";
 import { getAllPostsMeta } from "@/lib/posts-meta";
 import getSortedPosts from "@/lib/utils/getSortedPosts";
 import { SITE } from "@/lib/config";
+import { locales, type Locale } from "@/lib/i18n";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -14,15 +15,19 @@ export const contentType = "image/png";
 // connection (empty reply, no error logged, reproduced in both `vinext dev`
 // and `vinext start`); dropping the fetch and using Satori's default font
 // made it reliable. Falls back to Satori's default font instead.
-const ALL_POSTS_META = getAllPostsMeta();
+const ALL_POSTS_META: Record<Locale, ReturnType<typeof getAllPostsMeta>> = {
+  zh: getAllPostsMeta("zh"),
+  en: getAllPostsMeta("en"),
+};
 
 export default async function Image({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ lang: Locale; slug: string }>;
 }) {
-  const { slug } = await params;
-  const published = getSortedPosts(ALL_POSTS_META.filter(p => !p.data.draft));
+  const { lang, slug } = await params;
+  const meta = locales.includes(lang) ? ALL_POSTS_META[lang] : ALL_POSTS_META.zh;
+  const published = getSortedPosts(meta.filter(p => !p.data.draft));
   const post = published.find(p => p.id === slug);
 
   const title = post?.data.title ?? SITE.title;
