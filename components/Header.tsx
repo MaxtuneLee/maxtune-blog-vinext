@@ -37,9 +37,9 @@ export default function Header() {
       >
         Skip to content
       </a>
-      <div className="nav-container mx-auto flex max-w-3xl flex-col items-center justify-between sm:flex-row">
+      <div className="nav-container mx-auto flex max-w-3xl flex-col items-center justify-between">
         <div
-          className={`top-nav-wrap relative grid w-full overflow-hidden p-4 transition-all duration-200 ease-out sm:grid-cols-2 sm:grid-rows-1 sm:items-center sm:py-8 ${menuOpen ? "h-auto grid-rows-[0fr_1fr]" : "grid-rows-[0fr_0fr]"}`}
+          className={`top-nav-wrap relative grid w-full overflow-hidden p-4 transition-all duration-200 ease-out sm:py-8 ${menuOpen ? "h-auto grid-rows-[0fr_1fr]" : "grid-rows-[0fr_0fr]"}`}
         >
           <div className="flex w-full justify-between">
             <a
@@ -58,7 +58,7 @@ export default function Header() {
               )}
             </a>
             <button
-              className="hamburger-menu focus-outline self-end p-2 sm:hidden"
+              className="hamburger-menu focus-outline self-end p-2"
               aria-label={menuOpen ? "Close Menu" : "Open Menu"}
               aria-expanded={menuOpen}
               aria-controls="menu-items"
@@ -114,14 +114,10 @@ export default function Header() {
               </svg>
             </button>
           </div>
-          <nav
-            id="nav-menu"
-            className="w-full flex-row justify-center sm:justify-end sm:space-x-4 sm:py-0 md:justify-end"
-            style={{ minHeight: 0 }}
-          >
+          <nav id="nav-menu" className="w-full justify-center overflow-hidden" style={{ minHeight: 0 }}>
             <ul
               id="menu-items"
-              className="mx-auto mt-4 grid h-min w-44 grid-cols-2 grid-rows-4 gap-x-2 gap-y-2 sm:mx-0 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0"
+              className="mx-auto mt-4 grid h-min w-44 grid-cols-2 grid-rows-6 gap-x-2 gap-y-2"
             >
               <li className="col-span-2 flex items-center justify-center">
                 <a
