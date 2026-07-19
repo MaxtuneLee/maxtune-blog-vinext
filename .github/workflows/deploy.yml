@@ -90,4 +90,4 @@ jobs:
               docker rmi max/maxtune-blog
             fi
             docker load -i maxtune-blog.tar
-            docker run --restart always -d --name maxtune-blog -p 4321:8080 max/maxtune-blog
+            docker run --restart always -d --name maxtune-blog -p 4321:4321 max/maxtune-blog
