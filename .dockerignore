@@ -1,0 +1,10 @@
+node_modules
+dist
+.next
+.vinext
+.git
+.github
+*.tar
+npm-debug.log*
+.pnpm-debug.log*
+.DS_Store

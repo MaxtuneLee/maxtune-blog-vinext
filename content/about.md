@@ -1,8 +1,3 @@
-
-<div>
-  <img src="https://maxtuneblog.oss-cn-shenzhen.aliyuncs.com/old/assets/images/about.png" class="sm:w-1/2 mx-auto" alt="illustration">
-</div>
-
 ## Basic Infos
 
 ### Education
@@ -17,13 +12,16 @@
 
 ### Working Experience
 
+- **Didi** (Frontend Engineer)
+
+  2026.5 - present  Working on RN based App developing, Agent cooperate platform.
 - **Meituan** (Frontend Engineer)
   
-  2024.9 - 2025.12  Working on frontend infrastructure, typically in Mini-App developing
+  2024.9 - 2025.1  Working on frontend infrastructure, typically in Mini-App developing.
 
 - **Xiaomi** (Software Engineer)
   
-  2024.1 - 2024.8  Working on web AIGC poster editor, web video editor
+  2024.1 - 2024.8  Working on web AIGC poster editor, web video editor.
 
 ### Campus Experience
 
@@ -40,13 +38,15 @@
 
 Love coffee, photography, traveling, music.
 
-I own a Nikon Z6II, which I started out shooting with a 24-200mm zoom lens. Zooming eventually felt uninteresting, so I switched to a 50mm macro prime — much lighter to carry around. I also have a Nikon FE film camera; I think the texture film photography produces just can't be fully replicated by post-processing digital shots, and shooting film keeps you more focused, since every press of the shutter burns real money. I like shooting Kodak film — started with the all-purpose UltraMax 400, but since the price is about the same either way, I just shoot Portra now. I also have a Polaroid Onestep+, which I love for its unpredictability and rich variation in every shot — Fujifilm's instant cameras feel too "digital" by comparison, so why not just print instead? My dream cameras are a Hasselblad and a Polaroid 690.
+I own a Nikon Z6II, which I started out shooting with a 24-200mm zoom lens. Zooming eventually felt uninteresting, so I switched to a 50mm macro prime — much lighter to carry around. And now, I switch to Sigma fp for a even lighter experience, from which I can still keep the full frame sensor.
 
-I run a furry community called Wildbox, which I've been operating since 2016 — a lot has happened along the way, and if you've been around the furry community for a while, you might have heard of it. I'm currently planning a full frontend/backend rewrite of the platform (whenever I get the time — the stack is already decided, all TypeScript. If you're interested in contributing, feel free to reach out and build it with me).
+I also have a Nikon FE film camera; I think the texture film photography produces just can't be fully replicated by post-processing digital shots, and shooting film keeps you more focused, since every press of the shutter burns real money. I like shooting Kodak film, started with the all-purpose UltraMax 400, but since the price is about the same either way, I just shoot Portra now. 
 
-My taste in 🎶 music is pretty broad — pop, electronic, rock, I like it all. My favorite band is The Beatles; I collect their CDs, including *Help!*, *Abbey Road*, and *Let It Be*. I'm also a big fan of math rock — bands like Chinese Football, 鬼否, and toe are among my most treasured.
+I also have a Polaroid Onestep+, which I love for its unpredictability and rich variation in every shot — Fujifilm's instant cameras feel too "digital" by comparison, so why not just print instead? My dream cameras are a Hasselblad and a Polaroid 690.
 
-Loving music naturally led me to rhythm games too. I'm not a hardcore player, but rhythm games tend to feature a lot of Vocaloid and hardcore/core tracks, which I enjoy. I usually play Muse Dash, and I can currently clear songs around level 9. Also dabble in maimai DX (rating around 13,000) and chunithm (rating 9). If you're also into rhythm games, come play with me 🙌.
+My taste in 🎶 music is pretty broad. Pop, electronic, rock, I like it all. My favorite band is The Beatles; I collect their CDs, including *Help!*, *Abbey Road*, and *Let It Be*. I'm also a big fan of math rock — bands like Chinese Football, Griffo, and toe are among my most treasured.
+
+I run a furry community called Wildbox, which I've been operating since 2016. A lot has happened along the way, and if you've been around the furry community for a while, you might have heard of it. I'm currently planning a full frontend/backend rewrite of the platform (whenever I get the time — the stack is already decided. If you're interested in contributing, feel free to reach out and build it with me).
 
 ## Tech Stack
 
