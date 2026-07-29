@@ -1,5 +1,11 @@
 [
   {
+    "name": "面条实验室",
+    "avatar": "https://miantiao.me/assets/mt-black-line-DkyqjmVb.png",
+    "url": "https://miantiao.me",
+    "bio": "是前端，是Homelab爱好者，是 Self-hosting 大师"
+  },
+  {
     "name": "哈冬猪的小站",
     "url": "https://hadongzhu.com",
     "bio": "不是轨道，是旷野",
@@ -26,7 +32,7 @@
   {
     "name": "love98",
     "url": "https://blog.love98.net",
-    "avatar": "https://blog.love98.net/upload/SqLogo_transparent.png",
+    "avatar": "https://blog.love98.net/favicon.png",
     "bio": "全栈大师"
   }
 ]
