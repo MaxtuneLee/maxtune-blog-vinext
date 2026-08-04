@@ -13,6 +13,10 @@ export const zh = {
     recent: "最新文章",
     allPosts: "浏览全部文章",
   },
+  about: {
+    metaTitle: "关于",
+    pageTitle: "关于我",
+  },
   posts: {
     metaTitle: "文章",
     indexTitle: "所有文章",

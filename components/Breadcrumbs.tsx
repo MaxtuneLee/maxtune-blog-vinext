@@ -15,6 +15,11 @@ export default function Breadcrumbs() {
   // eg: /tags/tailwindcss => ['tags', 'tailwindcss']
   const breadcrumbList = currentUrlPath.split("/").slice(1);
 
+  // Localize a known top-level route segment (about, friends, ...) via nav
+  // labels; anything else (tags, slugs, page numbers) passes through as-is.
+  const navLabel = (seg: string) =>
+    (dict.nav as Record<string, string>)[seg] ?? decodeURIComponent(seg);
+
   // if breadcrumb is Home > Posts > 1 <etc>
   // replace Posts with Posts (page number)
   if (breadcrumbList[0] === "posts") {
@@ -50,7 +55,7 @@ export default function Breadcrumbs() {
                 className={`opacity-70 ${index > 0 ? "lowercase" : "capitalize"}`}
                 aria-current="page"
               >
-                {decodeURIComponent(breadcrumb)}
+                {navLabel(breadcrumb)}
               </span>
             </li>
           ) : (
@@ -59,7 +64,7 @@ export default function Breadcrumbs() {
                 href={localizePath(lang, `/${breadcrumb}`)}
                 className="capitalize opacity-70 hover:opacity-100"
               >
-                {breadcrumb}
+                {navLabel(breadcrumb)}
               </a>
               <span aria-hidden="true">&raquo;</span>
             </li>

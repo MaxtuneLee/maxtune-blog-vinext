@@ -17,6 +17,10 @@ export const en: typeof zh = {
     recent: "Recent Posts",
     allPosts: "View all posts",
   },
+  about: {
+    metaTitle: "About Me",
+    pageTitle: "About Me",
+  },
   posts: {
     metaTitle: "Posts",
     indexTitle: "All Posts",
