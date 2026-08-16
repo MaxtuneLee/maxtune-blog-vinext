@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "dev:vinext": "vinext dev",
-    "build:vinext": "vinext build",
+    "build:vinext": "vinext build && node scripts/prerender-og-images.mjs",
     "start:vinext": "vinext start"
   },
   "dependencies": {
@@ -29,7 +29,7 @@
     "remark-toc": "^9.0.0",
     "shiki": "^4.3.1",
     "unified": "^11.0.5",
-    "vinext": "1.0.0-beta.4"
+    "vinext": "1.0.0-beta.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -39,7 +39,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^6.0.3",
-    "@vitejs/plugin-rsc": "^0.5.27",
+    "@vitejs/plugin-rsc": "^0.5.34",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
     "tailwindcss": "^4",
